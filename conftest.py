@@ -1,30 +1,4 @@
-from selenium import webdriver
 import os
-
-class Main:
-    def __init__(self):
-        self.desired_capabilities = {}
-
-    def setUp(self):
-        print("Set up..")
-
-        self.desired_capabilities['platfomName'] = "Android"
-        self.desired_capabilities['DeviceName'] = "AndroidTestDecice"
-        self.desired_capabilities['platfromVersion'] = "9.0"
-
-        self.app_path = os.path.abspath("apks\org.wikipedia.apk")
-        self.desired_capabilities['AutomationName'] = "Appium"
-        self.desired_capabilities['appPackage'] = "org.wikipedia"
-        self.desired_capabilities['appActivity'] = "main.MainActivity"
-        self.desired_capabilities['app'] = self.app_path
-        # self.desired_capabilities['app'] = "C:\Users\Lenar\PycharmProjects\python-appium\apks\org.wikipedia.apk"
-
-        self.driver = webdriver.Remote("http://localhost:4723/wd/hub", self.desired_capabilities)
-
-    def tearDown(self):
-        print("Tear down..")
-        self.driver.quit()
-
 import pytest
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
