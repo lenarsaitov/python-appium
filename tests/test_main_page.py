@@ -1,2 +1,8 @@
-def test_guest_should_see_login_and_registraiton_fields(browser):
-    page = LoginPage(browser, link)
+from pages.main_page import MainPage
+import pytest
+from time import sleep
+
+@pytest.mark.dev
+def test_first(driver):
+    page = MainPage(driver)
+    page.some()
