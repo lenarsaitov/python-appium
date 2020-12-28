@@ -55,19 +55,26 @@ class MainPage:
     def cancel_any_search(self):
         self.find_element(*SearchPageLocators.BACK_FROM_SEARCH_PAGE).click()
 
-    def send_some_to_search_field(self):
+    def send_some_to_search_field(self, short_article = False):
         field = self.find_element(*SearchPageLocators.SEARCH_FIELD_ON_SEARCH_FIELD)
-        field.send_keys(SearchPageLocators.SOME_TEXT_FOR_SEARCH)
+        if short_article:
+            field.send_keys(SearchPageLocators.SHORT_ARTICLE_TITLE)
+        else:
+            field.send_keys(SearchPageLocators.SOME_TEXT_FOR_SEARCH)
 
-    def to_some_result(self):
-        self.title_of_results = self.find_elements(*SearchPageLocators.TITLE_ON_RESULTS)
-        self.description_of_results = self.find_elements(*SearchPageLocators.DESCRIPTION_ON_RESULTS)
+    def to_some_result(self, short_article = False):
+        if short_article:
+            self.find_element(*SearchPageLocators.TITLE_ON_RESULTS).click()
+            self.wait_loading()
+        else:
+            self.title_of_results = self.find_elements(*SearchPageLocators.TITLE_ON_RESULTS)
+            self.description_of_results = self.find_elements(*SearchPageLocators.DESCRIPTION_ON_RESULTS)
 
-        for i in self.description_of_results:
-            if SearchPageLocators.DESCRIPTION_ON_OUR_SEARCH in i.text:
-                i.click()
-                self.wait_loading()
-                break
+            for i in self.description_of_results:
+                if SearchPageLocators.DESCRIPTION_ON_OUR_SEARCH in i.text:
+                    i.click()
+                    self.wait_loading()
+                    break
 
     def swipe_to_down(self, time_of_swipe = 3000):
         print("swiping..")
@@ -80,7 +87,27 @@ class MainPage:
         start_x = int(size['width'] * 0.5)
         end_x = int(size['width'] * 0.5)
 
-        self.driver.swipe(start_x, start_y, end_x, end_y, 3000)
+        self.driver.swipe(start_x, start_y, end_x, end_y, 1000)
+
+    def swipe_to_max_down(self):
+        i = 0
+        self.have_bottom_element = True
+        bottom_element = self.find_element(*MainPageLocators.BOTTOM_OF_ARTICLE)
+        print(bottom_element.is_displayed())
+        print(EC.visibility_of_element_located(MainPageLocators.BOTTOM_OF_ARTICLE))
+        self.swipe_to_down()
+        self.swipe_to_down()
+        self.swipe_to_down()
+
+        print(bottom_element.is_displayed())
+        print(EC.visibility_of_element_located(MainPageLocators.BOTTOM_OF_ARTICLE))
+        while len(self.find_elements(*MainPageLocators.BOTTOM_OF_ARTICLE)) == 0 and i < 20:
+            i += 1
+            print(i)
+            self.swipe_to_down()
+        print("swipped")
+        if i >= 20:
+            self.have_bottom_element = False
 
     def should_be_wiki_search_field(self):
         assert len(self.find_elements(*MainPageLocators.TITLE_OF_SEARCH_FIELD)) == 1
@@ -104,3 +131,6 @@ class MainPage:
 
     def should_be_necessary_corresponding_title(self):
         assert self.description_of_results[0].text == self.find_element(*MainPageLocators.SHORT_DESCRIPTIONS_ON_ARTICLE).text
+
+    def should_be_bottom_box(self):
+        assert self.have_bottom_element, "Dont have necessary bottom element"

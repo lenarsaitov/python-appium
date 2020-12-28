@@ -19,9 +19,12 @@ class MainPageLocators:
     ALL_TEXT_OF_ARTICLE = (By.XPATH, "//android.view.View[contains(@resource-id, 'pcs')]")
     TITLE_ON_ARTICLE = (By.XPATH, "//android.view.View[contains(@resource-id, 'pcs')][0][0]")
     SHORT_DESCRIPTIONS_ON_ARTICLE = (By.XPATH, "//android.view.View[contains(@resource-id, 'pcs-edit-section-title-description')]")
+    # BOTTOM_OF_ARTICLE = (By.XPATH, "//android.view.View[contains(@resource-id, 'pcs-footer-container-legal')]")
+    BOTTOM_OF_ARTICLE = (By.XPATH, "//android.view.View[contains(@text, 'View article in browser')]")
 
 class SearchPageLocators:
     SOME_TEXT_FOR_SEARCH = "Kazan"
+    SHORT_ARTICLE_TITLE = "Appium"
     DESCRIPTION_ON_OUR_SEARCH = "Capital of Tatarstan, Russia"
 
 
