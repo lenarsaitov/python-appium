@@ -28,7 +28,6 @@ def test_cancel_any_search(driver):
     page.cancel_any_search()
     page.should_be_main_page()
 
-@pytest.mark.dev
 def test_deep_search_on_search_field(driver):
     page = MainPage(driver)
     page.skip_initial_settings()
@@ -36,3 +35,12 @@ def test_deep_search_on_search_field(driver):
     page.send_some_to_search_field()
     page.to_some_result()
     page.should_be_necessary_corresponding_title()
+
+@pytest.mark.dev
+def test_swipe_article(driver):
+    page = MainPage(driver)
+    page.skip_initial_settings()
+    page.to_search_page()
+    page.send_some_to_search_field()
+    page.to_some_result()
+    page.swipe_to_down()

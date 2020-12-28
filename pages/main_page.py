@@ -1,7 +1,4 @@
-import selenium
-from selenium.common.exceptions import NoSuchElementException
-from selenium.common.exceptions import NoAlertPresentException
-from selenium.common.exceptions import TimeoutException
+from appium.webdriver.common.touch_action import TouchAction
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from pages.locators import MainPageLocators, InitialSettingPageLocators, SearchPageLocators
@@ -69,7 +66,21 @@ class MainPage:
         for i in self.description_of_results:
             if SearchPageLocators.DESCRIPTION_ON_OUR_SEARCH in i.text:
                 i.click()
+                self.wait_loading()
                 break
+
+    def swipe_to_down(self, time_of_swipe = 3000):
+        print("swiping..")
+        action = TouchAction(self.driver)
+        size = self.driver.get_window_size()
+
+        start_y = int(size['height'] * 0.8)
+        end_y = int(size['height'] * 0.2)
+
+        start_x = int(size['width'] * 0.5)
+        end_x = int(size['width'] * 0.5)
+
+        self.driver.swipe(start_x, start_y, end_x, end_y, 3000)
 
     def should_be_wiki_search_field(self):
         assert len(self.find_elements(*MainPageLocators.TITLE_OF_SEARCH_FIELD)) == 1
@@ -79,20 +90,10 @@ class MainPage:
         description_of_results = self.find_elements(*SearchPageLocators.DESCRIPTION_ON_RESULTS)
         print(f"All titles on page: {len(title_of_results)}")
         print(f"All descriptions on page: {len(description_of_results)}")
-        trues = 0
 
-        for i in title_of_results:
-            if SearchPageLocators.SOME_TEXT_FOR_SEARCH in i.text:
-                trues +=1
-                break
-
-        for i in description_of_results:
-            if SearchPageLocators.DESCRIPTION_ON_OUR_SEARCH in i.text:
-                trues +=1
-                break
-
-        if trues !=2 :
-            assert False, "No suitable results"
+        for i in range(len(description_of_results)):
+            if SearchPageLocators.SOME_TEXT_FOR_SEARCH in title_of_results[i].text and SearchPageLocators.DESCRIPTION_ON_OUR_SEARCH in description_of_results[i].text:
+                assert True, "No suitable results"
 
     def should_be_empty_search_page(self):
         assert len(self.find_elements(*SearchPageLocators.SEARCH_FIELD_EMPTY_IMAGE)) == 1
