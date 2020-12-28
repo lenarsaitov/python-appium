@@ -21,34 +21,33 @@ class MainPage:
         print(f"Loaded {sec} seconds")
 
 
-    def find_element(self, how, what, timeout = 10):
+    def find_element(self, how, what, click = False, timeout = 10):
         self.wait_loading()
-        return WebDriverWait(self.driver, timeout).until(EC.presence_of_element_located((how, what)))
+        if click == True:
+            return WebDriverWait(self.driver, timeout).until(EC.element_to_be_clickable((how, what)))
+        else:
+            return WebDriverWait(self.driver, timeout).until(EC.presence_of_element_located((how, what)))
 
     def find_elements(self, how, what, timeout = 10):
         self.wait_loading()
         return WebDriverWait(self.driver, timeout).until(EC.presence_of_all_elements_located((how, what)))
 
     def setting_the_language(self):
-        self.find_element(*InitialSettingPageLocators.TO_ADD_OR_EDIT_LANGUAGE).click()
-        self.find_element(*InitialSettingPageLocators.TO_EDIT_LANGUAGE).click()
-        self.find_element(*InitialSettingPageLocators.TO_SEARCH_LANGUAGE).click()
+        self.find_element(*InitialSettingPageLocators.TO_ADD_OR_EDIT_LANGUAGE, click=True).click()
+        self.find_element(*InitialSettingPageLocators.TO_EDIT_LANGUAGE, click=True).click()
+        self.find_element(*InitialSettingPageLocators.TO_SEARCH_LANGUAGE, click=True).click()
 
         field = self.find_element(*InitialSettingPageLocators.SEARCH_LANGUAGE_FIELD)
         field.send_keys(InitialSettingPageLocators.LANGUAGE_WE_WANT)
 
-        self.wait_loading()
-        self.find_element(*InitialSettingPageLocators.LANGUAGE_WE_SELECT).click()
-
-        self.wait_loading()
-        self.find_element(*InitialSettingPageLocators.TO_BACK).click()
+        self.find_element(*InitialSettingPageLocators.LANGUAGE_WE_SELECT, click=True).click()
+        self.find_element(*InitialSettingPageLocators.TO_BACK, click=True).click()
 
     def skip_initial_settings(self):
-        self.find_element(*InitialSettingPageLocators.BUTTON_SKIP).click()
+        self.find_element(*InitialSettingPageLocators.BUTTON_SKIP, click=True).click()
 
     def to_search_page(self):
-        # self.wait_loading()
-        self.find_element(*MainPageLocators.TITLE_OF_SEARCH_FIELD).click()
+        self.find_element(*MainPageLocators.TITLE_OF_SEARCH_FIELD, click=True).click()
 
     def send_some_to_search_field(self):
         field = self.find_element(*MainPageLocators.SEARCH_FIELD_ON_SEARCH_FIELD)
