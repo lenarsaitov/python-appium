@@ -21,6 +21,8 @@ class MainPageLocators:
     SHORT_DESCRIPTIONS_ON_ARTICLE = (By.XPATH, "//android.view.View[contains(@resource-id, 'pcs-edit-section-title-description')]")
     # BOTTOM_OF_ARTICLE = (By.XPATH, "//android.view.View[contains(@resource-id, 'pcs-footer-container-legal')]")
     BOTTOM_OF_ARTICLE = (By.XPATH, "//android.view.View[contains(@text, 'View article in browser')]")
+    READ_MORE = (By.XPATH, "//android.view.View[contains(@resource-id, 'pcs-footer-container-readmore-heading')]")
+
 
 class SearchPageLocators:
     SOME_TEXT_FOR_SEARCH = "Kazan"

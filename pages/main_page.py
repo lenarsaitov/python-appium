@@ -92,16 +92,21 @@ class MainPage:
     def swipe_to_max_down(self):
         i = 0
         self.have_bottom_element = True
-        bottom_element = self.find_element(*MainPageLocators.BOTTOM_OF_ARTICLE)
+        bottom_element = self.find_element(*MainPageLocators.READ_MORE)
         print(bottom_element.is_displayed())
-        print(EC.visibility_of_element_located(MainPageLocators.BOTTOM_OF_ARTICLE))
+        print(bottom_element.is_enabled())
+        print(len(self.find_elements(*MainPageLocators.READ_MORE)))
+
+        self.swipe_to_down()
         self.swipe_to_down()
         self.swipe_to_down()
         self.swipe_to_down()
 
         print(bottom_element.is_displayed())
-        print(EC.visibility_of_element_located(MainPageLocators.BOTTOM_OF_ARTICLE))
-        while len(self.find_elements(*MainPageLocators.BOTTOM_OF_ARTICLE)) == 0 and i < 20:
+        print(bottom_element.is_enabled())
+        print(len(self.find_elements(*MainPageLocators.READ_MORE)))
+
+        while len(self.find_elements(*MainPageLocators.READ_MORE)) == 0 and i < 20:
             i += 1
             print(i)
             self.swipe_to_down()
