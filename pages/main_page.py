@@ -24,5 +24,20 @@ class MainPage:
 
     def some(self):
         self.wait_loading()
-        self.driver.find_element(*MainPageLocators.NEXT_ON_INITIAL_SETUP).click()
+        # self.driver.find_element(*MainPageLocators.TO_ADD_OR_EDIT_LANGUAGE).click()
+        print(len(self.driver.find_elements(*MainPageLocators.TO_ADD_OR_EDIT_LANGUAGE1)))
+        print(len(self.driver.find_elements(*MainPageLocators.TO_ADD_OR_EDIT_LANGUAGE2)))
+        print(len(self.driver.find_elements(*MainPageLocators.TO_ADD_OR_EDIT_LANGUAGE3)))
+        print(len(self.driver.find_elements(*MainPageLocators.TO_ADD_OR_EDIT_LANGUAGE4)))
+        print(len(self.driver.find_elements(*MainPageLocators.TO_ADD_OR_EDIT_LANGUAGE5)))
+
+        self.driver.find_element(*MainPageLocators.TO_ADD_OR_EDIT_LANGUAGE5).click()
+
         self.wait_loading()
+        self.driver.find_element(*MainPageLocators.TO_EDIT_LANGUAGE).click()
+        self.wait_loading()
+        self.driver.find_element(*MainPageLocators.TO_SEARCH_LANGUAGE).click()
+
+        field = self.driver.find_element(*MainPageLocators.SEARCH_LANGUAGE_FIELD)
+        field.send_keys(MainPageLocators.OUR_LANGUAGE)
+        sleep(10)
