@@ -13,7 +13,9 @@ class InitialSettingPageLocators:
 
 class MainPageLocators:
     WAIT = (By.CLASS_NAME, "ant-spin-container ant-spin-blur")
-    SOME_TEXT_FOR_SEARCH = "Appium"
+    SOME_TEXT_FOR_SEARCH = "Kazan"
     TITLE_OF_SEARCH_FIELD = (By.XPATH, "//android.widget.TextView[contains(@text, 'Search Wikipedia')]")
     SEARCH_FIELD_ON_SEARCH_FIELD = (By.XPATH, "//android.widget.EditText[contains(@text, 'Search Wikipedia')]")
-    SHOULD_BE_RESULT = (By.XPATH, "//android.widget.TextView[contains(@text, 'Appium')]")
+
+    TITLE_ON_RESULTS = (By.XPATH, "//android.widget.TextView[contains(@resource-id, 'org.wikipedia:id/page_list_item_title')]")
+    DESCRIPTION_ON_RESULTS = (By.XPATH, "//android.widget.TextView[contains(@resource-id, 'org.wikipedia:id/page_list_item_description')]")

@@ -13,53 +13,66 @@ class MainPage:
         self.driver.implicitly_wait(timeout)
 
     def wait_loading(self):
-        sleep(1)
         sec = 0
         while sec < 20:
-            sleep(0.5)
-            sec += 1
             if len(self.driver.find_elements(*MainPageLocators.WAIT)) == 0:
                 break
+            sec += 1
         print(f"Loaded {sec} seconds")
 
+
+    def find_element(self, how, what, timeout = 10):
+        self.wait_loading()
+        return WebDriverWait(self.driver, timeout).until(EC.presence_of_element_located((how, what)))
+
+    def find_elements(self, how, what, timeout = 10):
+        self.wait_loading()
+        return WebDriverWait(self.driver, timeout).until(EC.presence_of_all_elements_located((how, what)))
+
     def setting_the_language(self):
-        self.wait_loading()
-        print(len(self.driver.find_elements(*InitialSettingPageLocators.TO_ADD_OR_EDIT_LANGUAGE)))
-        self.driver.find_element(*InitialSettingPageLocators.TO_ADD_OR_EDIT_LANGUAGE).click()
+        self.find_element(*InitialSettingPageLocators.TO_ADD_OR_EDIT_LANGUAGE).click()
+        self.find_element(*InitialSettingPageLocators.TO_EDIT_LANGUAGE).click()
+        self.find_element(*InitialSettingPageLocators.TO_SEARCH_LANGUAGE).click()
 
-        self.wait_loading()
-        print(len(self.driver.find_elements(*InitialSettingPageLocators.TO_EDIT_LANGUAGE)))
-        self.driver.find_element(*InitialSettingPageLocators.TO_EDIT_LANGUAGE).click()
-
-        self.wait_loading()
-        print(len(self.driver.find_elements(*InitialSettingPageLocators.TO_SEARCH_LANGUAGE)))
-        self.driver.find_element(*InitialSettingPageLocators.TO_SEARCH_LANGUAGE).click()
-
-        print(len(self.driver.find_elements(*InitialSettingPageLocators.SEARCH_LANGUAGE_FIELD)))
-        field = self.driver.find_element(*InitialSettingPageLocators.SEARCH_LANGUAGE_FIELD)
+        field = self.find_element(*InitialSettingPageLocators.SEARCH_LANGUAGE_FIELD)
         field.send_keys(InitialSettingPageLocators.LANGUAGE_WE_WANT)
 
         self.wait_loading()
-        print(len(self.driver.find_elements(*InitialSettingPageLocators.LANGUAGE_WE_SELECT)))
-        self.driver.find_element(*InitialSettingPageLocators.LANGUAGE_WE_SELECT).click()
+        self.find_element(*InitialSettingPageLocators.LANGUAGE_WE_SELECT).click()
 
         self.wait_loading()
-        print(len(self.driver.find_elements(*InitialSettingPageLocators.TO_BACK)))
-        self.driver.find_element(*InitialSettingPageLocators.TO_BACK).click()
+        self.find_element(*InitialSettingPageLocators.TO_BACK).click()
 
     def skip_initial_settings(self):
-        self.driver.find_element(*InitialSettingPageLocators.BUTTON_SKIP).click()
+        self.find_element(*InitialSettingPageLocators.BUTTON_SKIP).click()
 
     def to_search_page(self):
-        self.wait_loading()
-        self.driver.find_element(*MainPageLocators.TITLE_OF_SEARCH_FIELD).click()
+        # self.wait_loading()
+        self.find_element(*MainPageLocators.TITLE_OF_SEARCH_FIELD).click()
 
     def send_some_to_search_field(self):
-        field = self.driver.find_element(*MainPageLocators.SEARCH_FIELD_ON_SEARCH_FIELD)
+        field = self.find_element(*MainPageLocators.SEARCH_FIELD_ON_SEARCH_FIELD)
         field.send_keys(MainPageLocators.SOME_TEXT_FOR_SEARCH)
 
     def should_be_wiki_search_field(self):
-        assert len(self.driver.find_elements(*MainPageLocators.TITLE_OF_SEARCH_FIELD)) == 1
+        assert len(self.find_elements(*MainPageLocators.TITLE_OF_SEARCH_FIELD)) == 1
 
     def should_be_corresponding_results(self):
-        assert len(self.driver.find_elements(*MainPageLocators.SHOULD_BE_RESULT)) == 1
+        title_of_results = self.find_elements(*MainPageLocators.TITLE_ON_RESULTS)
+        description_of_results = self.find_elements(*MainPageLocators.DESCRIPTION_ON_RESULTS)
+        print(f"All titles on page: {len(title_of_results)}")
+        print(f"All descriptions on page: {len(description_of_results)}")
+        trues = 0
+
+        for i in title_of_results:
+            if "Kazan" in i.text:
+                trues +=1
+                break
+
+        for i in description_of_results:
+            if "Capital of Tatarstan, Russia" in i.text:
+                trues +=1
+                break
+
+        if trues !=2 :
+            assert False, "No suitable results"
