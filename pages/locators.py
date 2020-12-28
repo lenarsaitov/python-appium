@@ -12,10 +12,24 @@ class InitialSettingPageLocators:
     BUTTON_SKIP = (By.XPATH, "//android.widget.Button[contains(@text, 'SKIP')]")
 
 class MainPageLocators:
+    TITLE_MAIN_PAGE = (By.XPATH, "//android.widget.ImageView[contains(@resource-id, 'org.wikipedia:id/single_fragment_toolbar_wordmark')]")
     WAIT = (By.CLASS_NAME, "ant-spin-container ant-spin-blur")
-    SOME_TEXT_FOR_SEARCH = "Kazan"
     TITLE_OF_SEARCH_FIELD = (By.XPATH, "//android.widget.TextView[contains(@text, 'Search Wikipedia')]")
+
+    ALL_TEXT_OF_ARTICLE = (By.XPATH, "//android.view.View[contains(@resource-id, 'pcs')]")
+    TITLE_ON_ARTICLE = (By.XPATH, "//android.view.View[contains(@resource-id, 'pcs')][0][0]")
+    SHORT_DESCRIPTIONS_ON_ARTICLE = (By.XPATH, "//android.view.View[contains(@resource-id, 'pcs-edit-section-title-description')]")
+
+class SearchPageLocators:
+    SOME_TEXT_FOR_SEARCH = "Kazan"
+    DESCRIPTION_ON_OUR_SEARCH = "Capital of Tatarstan, Russia"
+
+
     SEARCH_FIELD_ON_SEARCH_FIELD = (By.XPATH, "//android.widget.EditText[contains(@text, 'Search Wikipedia')]")
+    CANCEL_SEARCH = (By.XPATH, "//android.widget.ImageView[contains(@resource-id, 'org.wikipedia:id/search_close_btn')]")
+    SEARCH_FIELD_EMPTY_IMAGE = (By.XPATH, "//android.widget.ImageView[contains(@resource-id, 'org.wikipedia:id/search_empty_image')]")
 
     TITLE_ON_RESULTS = (By.XPATH, "//android.widget.TextView[contains(@resource-id, 'org.wikipedia:id/page_list_item_title')]")
     DESCRIPTION_ON_RESULTS = (By.XPATH, "//android.widget.TextView[contains(@resource-id, 'org.wikipedia:id/page_list_item_description')]")
+
+    BACK_FROM_SEARCH_PAGE = (By.XPATH, "//android.widget.ImageButton[contains(@index, '0')]")
