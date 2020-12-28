@@ -4,4 +4,5 @@ import pytest
 @pytest.mark.dev
 def test_first(driver):
     page = MainPage(driver)
-    page.some()
+    page.setting_the_language()
+    page.skip_initial_settings()

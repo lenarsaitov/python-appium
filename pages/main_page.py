@@ -22,22 +22,34 @@ class MainPage:
                 break
         print(f"Loaded {sec} seconds")
 
-    def some(self):
+    def setting_the_language(self):
         self.wait_loading()
-        # self.driver.find_element(*MainPageLocators.TO_ADD_OR_EDIT_LANGUAGE).click()
-        print(len(self.driver.find_elements(*MainPageLocators.TO_ADD_OR_EDIT_LANGUAGE1)))
-        print(len(self.driver.find_elements(*MainPageLocators.TO_ADD_OR_EDIT_LANGUAGE2)))
-        print(len(self.driver.find_elements(*MainPageLocators.TO_ADD_OR_EDIT_LANGUAGE3)))
-        print(len(self.driver.find_elements(*MainPageLocators.TO_ADD_OR_EDIT_LANGUAGE4)))
-        print(len(self.driver.find_elements(*MainPageLocators.TO_ADD_OR_EDIT_LANGUAGE5)))
-
-        self.driver.find_element(*MainPageLocators.TO_ADD_OR_EDIT_LANGUAGE5).click()
+        print(len(self.driver.find_elements(*MainPageLocators.TO_ADD_OR_EDIT_LANGUAGE)))
+        self.driver.find_element(*MainPageLocators.TO_ADD_OR_EDIT_LANGUAGE).click()
 
         self.wait_loading()
+        print(len(self.driver.find_elements(*MainPageLocators.TO_EDIT_LANGUAGE)))
         self.driver.find_element(*MainPageLocators.TO_EDIT_LANGUAGE).click()
+
         self.wait_loading()
+        print(len(self.driver.find_elements(*MainPageLocators.TO_SEARCH_LANGUAGE)))
         self.driver.find_element(*MainPageLocators.TO_SEARCH_LANGUAGE).click()
 
+        print(len(self.driver.find_elements(*MainPageLocators.SEARCH_LANGUAGE_FIELD)))
         field = self.driver.find_element(*MainPageLocators.SEARCH_LANGUAGE_FIELD)
-        field.send_keys(MainPageLocators.OUR_LANGUAGE)
-        sleep(10)
+        field.send_keys(MainPageLocators.LANGUAGE_WE_WANT)
+
+        self.wait_loading()
+        print(len(self.driver.find_elements(*MainPageLocators.LANGUAGE_WE_SELECT)))
+        self.driver.find_element(*MainPageLocators.LANGUAGE_WE_SELECT).click()
+
+        self.wait_loading()
+        print(len(self.driver.find_elements(*MainPageLocators.TO_BACK)))
+        self.driver.find_element(*MainPageLocators.TO_BACK).click()
+
+        self.wait_loading()
+        # print(len(self.driver.find_elements(*MainPageLocators.BUTTON_SKIP)))
+        self.driver.find_element(*MainPageLocators.BUTTON_SKIP).click()
+
+    def skip_initial_settings(self):
+        self.driver.find_element(*MainPageLocators.BUTTON_SKIP).click()
