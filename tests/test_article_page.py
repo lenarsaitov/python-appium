@@ -1,9 +1,19 @@
 from pages.article_page import ArticlePage
+from pages.base_page import try_except_screenshot
+from config import DESCRIPTION
+from config import URL_GITHUB
 import pytest
 import allure
 
 @pytest.mark.article
+@allure.description_html(DESCRIPTION)
+@allure.testcase(URL_GITHUB, 'https://github.com/lenarsaitov/python-appium')
+@allure.feature('Приложение Википедия на Android')
+@allure.story('Статьи')
+@allure.severity("critical")
 class TestArticle:
+    @allure.title("Ссылка в конце каждой статьи на просмотр в браузере")
+    @try_except_screenshot
     def test_have_bottom_element_on_articles(self, driver):
         page = ArticlePage(driver)
         page.skip_initial_settings()
@@ -13,6 +23,8 @@ class TestArticle:
         page.swipe_to_max_down()
         page.should_be_bottom_box()
 
+    @allure.title("Добавление и удаление статьи из списка")
+    @try_except_screenshot
     def test_add_article_to_list(self, driver):
         page = ArticlePage(driver)
         page.skip_initial_settings()
@@ -30,6 +42,8 @@ class TestArticle:
         page.delete_this_list()
         page.list_should_be_missing()
 
+    @allure.title("Фоновый режим при чтении статьи")
+    @try_except_screenshot
     def test_see_article_after_background(self, driver):
         page = ArticlePage(driver)
         page.skip_initial_settings()
