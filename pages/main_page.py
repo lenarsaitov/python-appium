@@ -2,7 +2,30 @@ from appium.webdriver.common.touch_action import TouchAction
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from pages.locators import MainPageLocators, InitialSettingPageLocators, SearchPageLocators
+from allure_commons.types import AttachmentType
+import allure
 from time import sleep
+
+def allure_step(description):
+    def decorator_for_step(function):
+        def wrapped(*args):
+            with allure.step(description):
+                function(*args)
+        return wrapped
+    return decorator_for_step
+
+def try_except_screenshot(function):
+    def wrapped(self, web_driver):
+        try:
+            function(self, web_driver)
+            allure.attach(web_driver.get_screenshot_as_png(), name='Скриншот', attachment_type=AttachmentType.PNG)
+        except AssertionError:
+            allure.attach(web_driver.get_screenshot_as_png(), name='Ошибка в тестируемом объекте', attachment_type=AttachmentType.PNG)
+            raise
+        except:
+            allure.attach(web_driver.get_screenshot_as_png(), name='Ошибка в тесте', attachment_type=AttachmentType.PNG)
+            raise
+    return wrapped
 
 class MainPage:
     def __init__(self, driver, timeout = 10):
@@ -79,10 +102,11 @@ class MainPage:
     def swipe_to_down(self, time_of_swipe = 3000):
         print("swiping..")
         action = TouchAction(self.driver)
+
         size = self.driver.get_window_size()
 
-        start_y = int(size['height'] * 0.8)
-        end_y = int(size['height'] * 0.2)
+        start_y = int(size['height'] * 0.9)
+        end_y = int(size['height'] * 0.1)
 
         start_x = int(size['width'] * 0.5)
         end_x = int(size['width'] * 0.5)
@@ -92,26 +116,18 @@ class MainPage:
     def swipe_to_max_down(self):
         i = 0
         self.have_bottom_element = True
-        bottom_element = self.find_element(*MainPageLocators.READ_MORE)
-        print(bottom_element.is_displayed())
-        print(bottom_element.is_enabled())
-        print(len(self.find_elements(*MainPageLocators.READ_MORE)))
+        bottom_element = self.find_element(*MainPageLocators.BOTTOM_OF_ARTICLE)
 
-        self.swipe_to_down()
-        self.swipe_to_down()
-        self.swipe_to_down()
-        self.swipe_to_down()
+        while i < MainPageLocators.MAX_SWIPE_TO_DOWNW_ACTION:
+            try:
+                WebDriverWait(self.driver, 3).until(EC.invisibility_of_element(MainPageLocators.BOTTOM_OF_ARTICLE))
+                break
+            except:
+                print(i)
+                i += 1
+                self.swipe_to_down()
 
-        print(bottom_element.is_displayed())
-        print(bottom_element.is_enabled())
-        print(len(self.find_elements(*MainPageLocators.READ_MORE)))
-
-        while len(self.find_elements(*MainPageLocators.READ_MORE)) == 0 and i < 20:
-            i += 1
-            print(i)
-            self.swipe_to_down()
-        print("swipped")
-        if i >= 20:
+        if i >= MainPageLocators.MAX_SWIPE_TO_DOWNW_ACTION-1:
             self.have_bottom_element = False
 
     def should_be_wiki_search_field(self):

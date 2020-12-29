@@ -12,6 +12,7 @@ class InitialSettingPageLocators:
     BUTTON_SKIP = (By.XPATH, "//android.widget.Button[contains(@text, 'SKIP')]")
 
 class MainPageLocators:
+    MAX_SWIPE_TO_DOWNW_ACTION = 4
     TITLE_MAIN_PAGE = (By.XPATH, "//android.widget.ImageView[contains(@resource-id, 'org.wikipedia:id/single_fragment_toolbar_wordmark')]")
     WAIT = (By.CLASS_NAME, "ant-spin-container ant-spin-blur")
     TITLE_OF_SEARCH_FIELD = (By.XPATH, "//android.widget.TextView[contains(@text, 'Search Wikipedia')]")
