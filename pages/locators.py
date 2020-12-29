@@ -17,19 +17,12 @@ class MainPageLocators:
     WAIT = (By.CLASS_NAME, "ant-spin-container ant-spin-blur")
     TITLE_OF_SEARCH_FIELD = (By.XPATH, "//android.widget.TextView[contains(@text, 'Search Wikipedia')]")
 
-    ALL_TEXT_OF_ARTICLE = (By.XPATH, "//android.view.View[contains(@resource-id, 'pcs')]")
-    TITLE_ON_ARTICLE = (By.XPATH, "//android.view.View[contains(@resource-id, 'pcs')][0][0]")
-    SHORT_DESCRIPTIONS_ON_ARTICLE = (By.XPATH, "//android.view.View[contains(@resource-id, 'pcs-edit-section-title-description')]")
-    # BOTTOM_OF_ARTICLE = (By.XPATH, "//android.view.View[contains(@resource-id, 'pcs-footer-container-legal')]")
-    BOTTOM_OF_ARTICLE = (By.XPATH, "//android.view.View[contains(@text, 'View article in browser')]")
-    READ_MORE = (By.XPATH, "//android.view.View[contains(@resource-id, 'pcs-footer-container-readmore-heading')]")
-
+    TO_MY_LISTS = (By.XPATH, "//android.widget.TextView[contains(@text, 'My lists')]")
 
 class SearchPageLocators:
     SOME_TEXT_FOR_SEARCH = "Kazan"
     SHORT_ARTICLE_TITLE = "Appium"
     DESCRIPTION_ON_OUR_SEARCH = "Capital of Tatarstan, Russia"
-
 
     SEARCH_FIELD_ON_SEARCH_FIELD = (By.XPATH, "//android.widget.EditText[contains(@text, 'Search Wikipedia')]")
     CANCEL_SEARCH = (By.XPATH, "//android.widget.ImageView[contains(@resource-id, 'org.wikipedia:id/search_close_btn')]")
@@ -39,3 +32,29 @@ class SearchPageLocators:
     DESCRIPTION_ON_RESULTS = (By.XPATH, "//android.widget.TextView[contains(@resource-id, 'org.wikipedia:id/page_list_item_description')]")
 
     BACK_FROM_SEARCH_PAGE = (By.XPATH, "//android.widget.ImageButton[contains(@index, '0')]")
+
+class ArticlePageLocators:
+    ALL_TEXT_OF_ARTICLE = (By.XPATH, "//android.view.View[contains(@resource-id, 'pcs')]")
+    TITLE_ON_ARTICLE = (By.XPATH, "//android.view.View[contains(@resource-id, 'pcs')][0][0]")
+    SHORT_DESCRIPTIONS_ON_ARTICLE = (By.XPATH, "//android.view.View[contains(@resource-id, 'pcs-edit-section-title-description')]")
+    BOTTOM_OF_ARTICLE = (By.XPATH, "//android.view.View[contains(@text, 'View article in browser')]")
+
+    SAVE_ARTICLE = (By.XPATH, "//android.widget.TextView[contains(@resource-id, 'org.wikipedia:id/article_menu_bookmark')]")
+    BUTTON_ADD_TO_LIST = (By.XPATH, "//android.widget.Button[contains(@resource-id, 'org.wikipedia:id/snackbar_action')]")
+    CREAT_NEW_LIST = (By.XPATH, "//android.widget.LinearLayout[contains(@resource-id, 'org.wikipedia:id/create_button')]")
+
+    NAME_OF_NEW_LIST = "Test list"
+    DESCRIPTION_OF_NEW_LIST = "Test description"
+    NAME_OF_NEW_LIST_FIELD = (By.XPATH, "//android.widget.TextView[contains(@resource-id, 'org.wikipedia:id/textinput_placeholder')]")
+    DESCRIPTION_OF_NEW_LIST_FIELD = (By.XPATH, "//android.widget.EditText[contains(@resource-id, 'org.wikipedia:id/secondary_text_input')]")
+    BUTTON_OK_WHEN_CREATE_NEW_LIST = (By.XPATH, "//android.widget.Button[contains(@resource-id, 'android:id/button1')]")
+
+    BUTTON_BACK_FROM_ARTICLE = (By.XPATH, "//android.widget.ImageButton[contains(@content-desc, 'Navigate up')]")
+
+class MyListPageLocators:
+    TITLE_OF_ARTICLE = (By.XPATH, "//android.widget.TextView[contains(@resource-id, 'org.wikipedia:id/page_list_item_title')]")
+    MY_LIST = (By.XPATH, f"//android.widget.TextView[contains(@text, '{ArticlePageLocators.NAME_OF_NEW_LIST}')]")
+
+    TO_OVERFLOW_MENU = (By.XPATH, "//android.widget.ImageView[contains(@resource-id, 'org.wikipedia:id/item_overflow_menu')]")
+    BUTTON_DELETE_LIST = (By.XPATH, f"//android.widget.TextView[contains(@text, 'Delete list')]")
+    BUTTON_OK_WHEN_ALLERT_WHEN_DELETE = (By.XPATH, f"//android.widget.Button[contains(@text, 'OK')]")
