@@ -79,7 +79,7 @@ class MainPage:
         self.find_element(*SearchPageLocators.BACK_FROM_SEARCH_PAGE).click()
 
     def send_some_to_search_field(self, short_article = False):
-        field = self.find_element(*SearchPageLocators.SEARCH_FIELD_ON_SEARCH_FIELD)
+        field = self.find_element(*SearchPageLocators.SEARCH_FIELD_ON_SEARCH_PAGE)
         if short_article:
             field.send_keys(SearchPageLocators.SHORT_ARTICLE_TITLE)
         else:
@@ -157,6 +157,13 @@ class MainPage:
         self.find_elements(*MyListPageLocators.BUTTON_DELETE_LIST).click()
         self.find_elements(*MyListPageLocators.BUTTON_OK_WHEN_ALLERT_WHEN_DELETE).click()
 
+    def send_meaningless_text(self):
+        field = self.find_element(*SearchPageLocators.SEARCH_FIELD_ON_SEARCH_PAGE)
+        field.send_keys(SearchPageLocators.MEANINGLESS_TEXT)
+
+    def rotate_to_left(self):
+
+
     def should_be_wiki_search_field(self):
         assert len(self.find_elements(*MainPageLocators.TITLE_OF_SEARCH_FIELD)) == 1
 
@@ -191,3 +198,7 @@ class MainPage:
 
     def list_should_be_missing(self):
         assert len(self.find_elements(*MyListPageLocators.MY_LIST)) == 0
+
+    def should_be_nothing_result(self):
+        title_of_results = self.find_elements(*SearchPageLocators.TITLE_ON_RESULTS)
+        assert len(title_of_results) == 0, "Should be empty results"

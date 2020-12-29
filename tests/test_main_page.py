@@ -45,7 +45,6 @@ def test_have_bottom_element_on_articles(driver):
     page.swipe_to_max_down()
     page.should_be_bottom_box()
 
-@pytest.mark.dev
 def test_add_article_to_list(driver):
     page = MainPage(driver)
     page.skip_initial_settings()
@@ -62,3 +61,19 @@ def test_add_article_to_list(driver):
     page.should_be_article_on_this_new_list()
     page.delete_this_list()
     page.list_should_be_missing()
+
+def test_search_return_nothing(driver):
+    page = MainPage(driver)
+    page.skip_initial_settings()
+    page.to_search_page()
+    page.send_meaningless_text()
+    page.should_be_nothing_result()
+
+@pytest.mark.dev
+def test_see_article_after_rotaition(driver):
+    page = MainPage(driver)
+    page.skip_initial_settings()
+    page.to_search_page()
+    page.send_some_to_search_field()
+    page.to_some_result()
+    page.rotate_to_left()

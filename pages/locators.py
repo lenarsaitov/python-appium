@@ -23,8 +23,9 @@ class SearchPageLocators:
     SOME_TEXT_FOR_SEARCH = "Kazan"
     SHORT_ARTICLE_TITLE = "Appium"
     DESCRIPTION_ON_OUR_SEARCH = "Capital of Tatarstan, Russia"
+    MEANINGLESS_TEXT = "dfsew421234gf95"
 
-    SEARCH_FIELD_ON_SEARCH_FIELD = (By.XPATH, "//android.widget.EditText[contains(@text, 'Search Wikipedia')]")
+    SEARCH_FIELD_ON_SEARCH_PAGE = (By.XPATH, "//android.widget.EditText[contains(@text, 'Search Wikipedia')]")
     CANCEL_SEARCH = (By.XPATH, "//android.widget.ImageView[contains(@resource-id, 'org.wikipedia:id/search_close_btn')]")
     SEARCH_FIELD_EMPTY_IMAGE = (By.XPATH, "//android.widget.ImageView[contains(@resource-id, 'org.wikipedia:id/search_empty_image')]")
 
@@ -41,6 +42,7 @@ class ArticlePageLocators:
 
     SAVE_ARTICLE = (By.XPATH, "//android.widget.TextView[contains(@resource-id, 'org.wikipedia:id/article_menu_bookmark')]")
     BUTTON_ADD_TO_LIST = (By.XPATH, "//android.widget.Button[contains(@resource-id, 'org.wikipedia:id/snackbar_action')]")
+    # BUTTON_ADD_TO_LIST = (By.XPATH, "//android.widget.FrameLayout[contains(@index, '0')]/android.widget.LinearLayout[contains(@index, '0')]/android.widget.FrameLayout[contains(@index, '0')]/android.widget.FrameLayout[contains(@resource-id, 'org.wikipedia:id/action_bar_root')]/android.widget.FrameLayout[contains(@resource-id, 'android:id/content')]/androidx.drawerlayout.widget.DrawerLayout[contains(@resource-id, 'org.wikipedia:id/navigation_drawer')]/android.widget.FrameLayout[contains(@resource-id, 'org.wikipedia:id/activity_page_container')]/android.widget.FrameLayout[contains(@resource-id, 'org.wikipedia:id/page_fragment')]/android.view.ViewGroup[contains(@resource-id, 'org.wikipedia:id/page_refresh_container')]/android.view.ViewGroup[contains(@resource-id, 'org.wikipedia:id/page_contents_container')]/android.view.ViewGroup[contains(@resource-id, 'org.wikipedia:id/fragment_page_coordinator')]/android.widget.FrameLayout[contains(@index, '0')]/android.widget.LinearLayout[contains(@index, '0')]/android.widget.Button[contains(@resource-id, 'org.wikipedia:id/snackbar_action')]")
     CREAT_NEW_LIST = (By.XPATH, "//android.widget.LinearLayout[contains(@resource-id, 'org.wikipedia:id/create_button')]")
 
     NAME_OF_NEW_LIST = "Test list"
