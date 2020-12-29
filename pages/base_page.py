@@ -14,15 +14,15 @@ def allure_step(description):
     return decorator_for_step
 
 def try_except_screenshot(function):
-    def wrapped(self, web_driver):
+    def wrapped(self, driver):
         try:
-            function(self, web_driver)
-            allure.attach(web_driver.get_screenshot_as_png(), name='Скриншот', attachment_type=AttachmentType.PNG)
+            function(self, driver)
+            allure.attach(driver.get_screenshot_as_png(), name='Скриншот', attachment_type=AttachmentType.PNG)
         except AssertionError:
-            allure.attach(web_driver.get_screenshot_as_png(), name='Ошибка в тестируемом объекте', attachment_type=AttachmentType.PNG)
+            allure.attach(driver.get_screenshot_as_png(), name='Скриншот: ошибка в тестируемом объекте', attachment_type=AttachmentType.PNG)
             raise
         except:
-            allure.attach(web_driver.get_screenshot_as_png(), name='Ошибка в тесте', attachment_type=AttachmentType.PNG)
+            allure.attach(driver.get_screenshot_as_png(), name='Скриншот: ошибка в тесте', attachment_type=AttachmentType.PNG)
             raise
     return wrapped
 

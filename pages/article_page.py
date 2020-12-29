@@ -32,7 +32,7 @@ class ArticlePage(SearchPage):
                 WebDriverWait(self.driver, 3).until(EC.invisibility_of_element(ArticlePageLocators.BOTTOM_OF_ARTICLE))
                 break
             except:
-                print(i)
+                print(f"swipe {i+1}")
                 i += 1
                 self.swipe_to_down()
 

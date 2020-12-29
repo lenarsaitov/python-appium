@@ -12,10 +12,11 @@ import allure
 @allure.story('Поиск')
 @allure.severity("critical")
 class TestSearch:
+    @pytest.mark.dev0
     @allure.title("Поле на главной странице для поиска статей")
     @try_except_screenshot
     def test_open_required_application(self, driver):
-        page = SearchPage(self, driver)
+        page = SearchPage(driver)
         page.skip_initial_settings()
         page.should_be_wiki_search_field()
 
@@ -37,7 +38,6 @@ class TestSearch:
         page.send_meaningless_text()
         page.should_be_nothing_result()
 
-    @pytest.mark.search1
     @allure.title("Открытие статьи из результатов поиска")
     @try_except_screenshot
     def test_deep_search_on_search_field(self, driver):
