@@ -33,10 +33,10 @@ class SearchPage(BasePage):
                 self.find_element(*SearchPageLocators.TITLE_ON_RESULTS).click()
                 self.wait_loading()
             else:
-                self.title_of_results = self.find_elements(*SearchPageLocators.TITLE_ON_RESULTS)
-                self.description_of_results = self.find_elements(*SearchPageLocators.DESCRIPTION_ON_RESULTS)
+                title_of_results = self.find_elements(*SearchPageLocators.TITLE_ON_RESULTS)
+                description_of_results = self.find_elements(*SearchPageLocators.DESCRIPTION_ON_RESULTS)
 
-                for i in self.description_of_results:
+                for i in description_of_results:
                     if SearchPageLocators.DESCRIPTION_ON_OUR_SEARCH in i.text:
                         i.click()
                         self.wait_loading()
@@ -74,7 +74,7 @@ class SearchPage(BasePage):
     @allure_step("Проверка наличия соответствующего заголовка и описания")
     def should_be_necessary_corresponding_title(self):
         WebDriverWait(self.driver, 3).until(EC.visibility_of_element_located(ArticlePageLocators.SHORT_DESCRIPTIONS_ON_ARTICLE))
-        assert self.description_of_results[0].text == self.find_element(*ArticlePageLocators.SHORT_DESCRIPTIONS_ON_ARTICLE).text
+        assert SearchPageLocators.DESCRIPTION_ON_OUR_SEARCH == self.find_element(*ArticlePageLocators.SHORT_DESCRIPTIONS_ON_ARTICLE).text
 
     @allure_step("Проверка отсутствия результатов поиска")
     def should_be_nothing_result(self):
