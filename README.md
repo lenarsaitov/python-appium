@@ -1,4 +1,6 @@
-## Automation testing wikipedia mobile application
+## Automation testing Wikipedia mobile application
+
+Тестируемое приложение: [Wikipedia](https://play.google.com/store/apps/details?id=org.wikipedia&hl=en&gl=US)
 
 Тест-кейсы случайны и не отражают приоритетность тестирования приложения.
 
