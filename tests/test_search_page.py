@@ -12,7 +12,6 @@ import allure
 @allure.story('Поиск')
 @allure.severity("critical")
 class TestSearch:
-    @pytest.mark.dev0
     @allure.title("Поле на главной странице для поиска статей")
     @try_except_screenshot
     def test_open_required_application(self, driver):

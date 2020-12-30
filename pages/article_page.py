@@ -4,7 +4,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from pages.locators import MainPageLocators, SearchPageLocators, ArticlePageLocators, MyListPageLocators
 from pages.search_page import SearchPage
 from pages.base_page import allure_step
-
+from time import sleep
 
 class ArticlePage(SearchPage):
     def swipe_to_down(self, time_of_swipe = 3000):
@@ -63,13 +63,13 @@ class ArticlePage(SearchPage):
 
     @allure_step("Переход в список")
     def to_this_list(self):
-        self.find_elements(*MyListPageLocators.MY_LIST).click()
+        self.find_element(*MyListPageLocators.MY_LIST).click()
 
     @allure_step("Удаление данного списка")
     def delete_this_list(self):
-        self.find_elements(*MyListPageLocators.TO_OVERFLOW_MENU).click()
-        self.find_elements(*MyListPageLocators.BUTTON_DELETE_LIST).click()
-        self.find_elements(*MyListPageLocators.BUTTON_OK_WHEN_ALLERT_WHEN_DELETE).click()
+        self.find_element(*MyListPageLocators.TO_OVERFLOW_MENU).click()
+        self.find_element(*MyListPageLocators.BUTTON_DELETE_LIST).click()
+        self.find_element(*MyListPageLocators.BUTTON_OK_WHEN_ALLERT_WHEN_DELETE).click()
 
     @allure_step("Проверка наличия ссылки на переход в версию для пк")
     def should_be_bottom_box(self):
@@ -77,10 +77,12 @@ class ArticlePage(SearchPage):
 
     @allure_step("Проверка наличия списка")
     def should_be_my_new_list(self):
+        WebDriverWait(self.driver, 3).until(EC.visibility_of_element_located(MyListPageLocators.MY_LIST))
         assert len(self.find_elements(*MyListPageLocators.MY_LIST)) == 1
 
     @allure_step("Проверка наличия статьи в списке")
     def should_be_article_on_this_new_list(self):
+        WebDriverWait(self.driver, 3).until(EC.visibility_of_element_located(MyListPageLocators.TITLE_OF_ARTICLE))
         assert self.find_element(*MyListPageLocators.TITLE_OF_ARTICLE).text == SearchPageLocators.SOME_TEXT_FOR_SEARCH
 
     @allure_step("Проверка исчезновения списка")

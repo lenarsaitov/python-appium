@@ -47,7 +47,7 @@ class ArticlePageLocators:
 
     NAME_OF_NEW_LIST = "Test list"
     DESCRIPTION_OF_NEW_LIST = "Test description"
-    NAME_OF_NEW_LIST_FIELD = (By.XPATH, "//android.widget.TextView[contains(@resource-id, 'org.wikipedia:id/textinput_placeholder')]")
+    NAME_OF_NEW_LIST_FIELD = (By.XPATH, "//android.widget.EditText[contains(@resource-id, 'org.wikipedia:id/text_input')]")
     DESCRIPTION_OF_NEW_LIST_FIELD = (By.XPATH, "//android.widget.EditText[contains(@resource-id, 'org.wikipedia:id/secondary_text_input')]")
     BUTTON_OK_WHEN_CREATE_NEW_LIST = (By.XPATH, "//android.widget.Button[contains(@resource-id, 'android:id/button1')]")
 
